@@ -2,14 +2,11 @@ namespace tl2_tp09_2023_MarceAbr.Models
 {
     public class Usuario
     {
-        private int Id {get ; set;}
-        private string? NombreDeUsuario {get ; set;} 
+        private int id;
+        private string? nombreDeUsuario;
 
-        public Usuario(){}
+        public int Id { get => id; set => id = value; }
+        public string? NombreDeUsuario { get => nombreDeUsuario; set => nombreDeUsuario = value; }
 
-        public Usuario(string usu)
-        {
-            this.NombreDeUsuario = usu;
-        }
     }
 }

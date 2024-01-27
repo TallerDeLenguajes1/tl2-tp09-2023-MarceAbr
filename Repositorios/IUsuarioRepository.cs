@@ -1,7 +1,13 @@
+using tl2_tp09_2023_MarceAbr.Models;
+
 namespace tl2_tp09_2023_MarceAbr.Repositorios
 {
-    public class IUsuarioRepository
+    public interface IUsuarioRepository
     {
-        
+        public void CrearUsuario(Usuario usu);
+        public void ModificarUsuario(int id, Usuario usu);
+        public List<Usuario> ListaUsuario();
+        public Usuario MostrarUsuario(int id);
+        public void EliminarUsuario(int id);
     }
 }
