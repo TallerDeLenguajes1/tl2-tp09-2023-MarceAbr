@@ -10,22 +10,20 @@ namespace tl2_tp09_2023_MarceAbr.Models
     } 
     public class Tarea
     {
-        private int Id {get; set;}
-        private string? Nombre {get;set;}
-        private string? Descripcion {get;set;}
-        private string? Color {get;set;}
-        private Estado EstadoTarea {get;set;}
-        private int IdUsuarioAsignado {get;set;}
+        private int id;
+        private int idTablero;
+        private string? nombre;
+        private string? descripcion;
+        private string? color;
+        private Estado estadoTarea;
+        private int idUsuarioAsignado;
 
-        public Tarea(){}
-
-        public Tarea(string nomb, string desc, string color, Estado est, int IdUsu)
-        {
-            this.Nombre = nomb;
-            this.Descripcion = desc;
-            this.Color = color;
-            this.EstadoTarea = est;
-            this.IdUsuarioAsignado = IdUsu;
-        }
+        public int Id { get => id; set => id = value; }
+        public int IdTablero { get => idTablero; set => idTablero = value; }
+        public string? Nombre {get => nombre; set => nombre = value;}
+        public string? Descripcion { get => descripcion; set => descripcion = value; }
+        public string? Color { get => color; set => color = value; }
+        public Estado EstadoTarea { get => estadoTarea; set => estadoTarea = value; }
+        public int IdUsuarioAsignado { get => idUsuarioAsignado; set => idUsuarioAsignado = value; }
     }
 }
