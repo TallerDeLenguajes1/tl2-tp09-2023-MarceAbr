@@ -5,7 +5,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
 {
     public class TareaRepository : ITareaRepository
     {
-        private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string CadenaDeConexion = "Data Source=C:/Users/Marcelo/Desktop/PU/Segundo Semestre/Taller 2/tl2-tp09-2023-MarceAbr/BD/kanban.db;Cache=Shared";
         public void CrearTarea(int idTab, Tarea tarea)
         {
             var queryString = @"INSERT INTO Tarea (id_tablero, nombre, estado, descripcion, color, id_usuario_asignado) 
@@ -30,13 +30,14 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
         public void ModificarTarea(int idTarea, Tarea tarea)
         {
             var queryString = @"UPDATE Tarea SET nombre = @nombre, estado = @estado, descripcion = @desc,
-                                color = @color, id_usuario_asignado = @idUsuAsignado WHERE id = @idTarea;";
+                                color = @color, id_usuario_asignado = @idUsuAsignado, id_tablero = @idTab WHERE id = @idTarea;";
 
             using (SQLiteConnection conexion = new SQLiteConnection(CadenaDeConexion))
             {
                 conexion.Open();
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
                 comando.Parameters.Add(new SQLiteParameter("@idTarea", idTarea));
+                comando.Parameters.Add(new SQLiteParameter("@idTab", tarea.IdTablero));
                 comando.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
                 comando.Parameters.Add(new SQLiteParameter("@estado", tarea.EstadoTarea));
                 comando.Parameters.Add(new SQLiteParameter("@desc", tarea.Descripcion));
@@ -44,7 +45,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
                 comando.Parameters.Add(new SQLiteParameter("@idUsuAsignado", tarea.IdUsuarioAsignado));
 
                 comando.ExecuteNonQuery();
-                conexion.Clone();
+                conexion.Close();
             }
         }
 
@@ -53,7 +54,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
             var queryString = @"SELECT * FROM Tarea WHERE id = @idTarea;";
             Tarea tarea = new Tarea();
 
-            using (SQLiteConnection conexion = new SQLiteConnection())
+            using (SQLiteConnection conexion = new SQLiteConnection(CadenaDeConexion))
             {
                 conexion.Open();
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
@@ -88,7 +89,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
             var queryString = @"SELECT * FROM Tarea WHERE id_usuario_asignado = @idUsu;"; 
             List<Tarea> tareas = new List<Tarea>();
 
-            using (SQLiteConnection conexion = new SQLiteConnection())
+            using (SQLiteConnection conexion = new SQLiteConnection(CadenaDeConexion))
             {
                 conexion.Open();
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
@@ -119,7 +120,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
             var queryString = @"SELECT * FROM Tarea WHERE id_usuario_asignado = @idTablero;"; 
             List<Tarea> tareas = new List<Tarea>();
 
-            using (SQLiteConnection conexion = new SQLiteConnection())
+            using (SQLiteConnection conexion = new SQLiteConnection(CadenaDeConexion))
             {
                 conexion.Open();
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);

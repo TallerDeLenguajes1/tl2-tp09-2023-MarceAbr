@@ -35,4 +35,11 @@ public class TableroController : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpPut("Modificar_Tablero")]
+    public ActionResult<Tablero> ModificarTarea(int idTablero, Tablero tablero) 
+    {
+        tableroRepository.ModificarTablero(idTablero, tablero);
+        return Ok(tablero);
+    }
 }

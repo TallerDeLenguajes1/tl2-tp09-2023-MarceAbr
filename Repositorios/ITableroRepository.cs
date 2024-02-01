@@ -10,5 +10,6 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
         public List<Tablero> ListarTableros();
         public List<Tablero> ListarTableroPorUsuario(int idUsu);
         public void EliminarTablero(int idTab);
+        public void ModificarTarea(int idTarea, Tablero tablero);
     }
 }

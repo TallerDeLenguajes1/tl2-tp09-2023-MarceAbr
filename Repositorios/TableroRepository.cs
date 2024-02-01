@@ -5,11 +5,11 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
 {
     public class TableroRepository : ITableroRepository
     {
-        private string cadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string cadenaDeConexion = "Data Source=C:/Users/Marcelo/Desktop/PU/Segundo Semestre/Taller 2/tl2-tp09-2023-MarceAbr/BD/kanban.db;Cache=Shared";
 
         public void CrearTablero(Tablero tab)
         {
-            var queryString = @"SELECT INTO Tablero (id_usuario_propietario, nombre, descripcion) VALUES (@idUsu, @nombre, @desc);";
+            var queryString = @"INSERT INTO Tablero (id_usuario_propietario, nombre, descripcion) VALUES(@idUsu, @nombre, @desc);";
 
             using(SQLiteConnection conexion = new SQLiteConnection(cadenaDeConexion))
             {
@@ -135,6 +135,25 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
 
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
                 comando.Parameters.Add(new SQLiteParameter("@idTablero", idTab));
+                comando.ExecuteNonQuery();
+                conexion.Close();
+            }
+        }
+
+        public void ModificarTarea(int idTablero, Tablero tablero)
+        {
+            var queryString = @"UPDATE Tarea SET id_usuario_propietario = @idUsu, nombre = @nombre,
+                              descripcion = @desc  WHERE id = @idTablero;";
+
+            using (SQLiteConnection conexion = new SQLiteConnection(cadenaDeConexion))
+            {
+                conexion.Open();
+                SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
+                comando.Parameters.Add(new SQLiteParameter("@idTarea", idTablero));
+                comando.Parameters.Add(new SQLiteParameter("@idUsu", tablero.IdUsuario));
+                comando.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
+                comando.Parameters.Add(new SQLiteParameter("@desc", tablero.Descripcion));
+
                 comando.ExecuteNonQuery();
                 conexion.Close();
             }

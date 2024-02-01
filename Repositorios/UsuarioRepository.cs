@@ -6,16 +6,16 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private string CadenaDeConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string CadenaDeConexion = "Data Source=C:/Users/Marcelo/Desktop/PU/Segundo Semestre/Taller 2/tl2-tp09-2023-MarceAbr/BD/kanban.db;Cache=Shared";
         public void CrearUsuario(Usuario usu)
         {
-            var queryString = @"INSERT INTO Usuario (nombre_de_usuario) VALUES (@nombre);";
+            var queryString = @"INSERT INTO Usuario (nombre_de_usuario) VALUES(@nombre);";
 
             using(SQLiteConnection conexion = new SQLiteConnection(CadenaDeConexion))
             {
                 conexion.Open();
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
-                comando.Parameters.Add(new SqlParameter("@nombre", usu.NombreDeUsuario));
+                comando.Parameters.Add(new SQLiteParameter("@nombre", usu.NombreDeUsuario));
                 comando.ExecuteNonQuery();
 
                 conexion.Close();   
@@ -75,7 +75,6 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
                 SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
                 comando.Parameters.Add(new SQLiteParameter("@idUsu", id));
 
-                //VER SI REALMENTE HACE FALTA EL WHILE (Lo cambie por un if)
                 using(SQLiteDataReader reader = comando.ExecuteReader())
                 {
                     if(reader.Read())

@@ -82,4 +82,16 @@ public class TareaController : ControllerBase
             return NotFound();
         }
     }
+
+    [HttpGet("Listar_Todas_las_tareas")]
+    public ActionResult<Tarea> ListarTodasLasTarea()
+    {
+        List<Tarea> tareas = tareaRepository.ListarTareas();
+        if (tareas != null)
+        {
+            return Ok(tareas);
+        } else {
+            return NotFound();
+        }
+    }
 }
