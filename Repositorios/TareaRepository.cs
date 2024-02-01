@@ -174,5 +174,40 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
                 conexion.Close();
             }
         }
+
+        public List<Tarea> ListarTareas()
+        {
+            var queryString = @"SELECT * FROM tarea;";
+            List<Tarea> tareas = new List<Tarea>();
+
+            using (SQLiteConnection conexion = new SQLiteConnection(CadenaDeConexion))
+            {
+                conexion.Open();
+                SQLiteCommand comando = new SQLiteCommand(queryString, conexion);
+
+                using (SQLiteDataReader reader = comando.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Tarea tarea = new Tarea();
+                        tarea.Id = Convert.ToInt32(reader["id"]);
+                        tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
+                        tarea.Nombre = reader["nombre"].ToString();
+                        tarea.EstadoTarea = (Estado)Convert.ToInt32(reader["estado"]);
+                        tarea.Descripcion = reader["descripcion"].ToString();
+                        tarea.Color = reader["color"].ToString();
+                        if (reader["id_usuario_asignado"] == DBNull.Value)
+                        {
+                            tarea.IdUsuarioAsignado = 0;   
+                        } else {
+                            tarea.IdUsuarioAsignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+                        }
+                        tareas.Add(tarea);
+                    }
+                }
+                conexion.Close();
+            }
+            return tareas;
+        }
     }
 }

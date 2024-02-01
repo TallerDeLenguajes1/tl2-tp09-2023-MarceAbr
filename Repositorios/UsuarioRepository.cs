@@ -18,7 +18,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
                 comando.Parameters.Add(new SqlParameter("@nombre", usu.NombreDeUsuario));
                 comando.ExecuteNonQuery();
 
-                conexion.Close();
+                conexion.Close();   
             }
         }
 
@@ -39,7 +39,7 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
             }
         }
 
-        public List<Usuario> ListaUsuario()
+        public List<Usuario> ListarUsuarios()
         {
             var queryString = @"SELECT * FROM Usuario;";
             List<Usuario> usuarios = new List<Usuario>();

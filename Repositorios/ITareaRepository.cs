@@ -11,5 +11,6 @@ namespace tl2_tp09_2023_MarceAbr.Repositorios
         public List<Tarea> ListarTareasPorTablero(int idTab);
         public void EliminarTarea(int idTarea);
         public void AsignarUsuarioATarea(int idTarea, int idUsu);
+        public List<Tarea> ListarTareas();
     }
 }
